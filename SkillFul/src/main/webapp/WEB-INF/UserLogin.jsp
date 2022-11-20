@@ -15,7 +15,7 @@
     <c:if test="${errorMessage != null}">
         <c:out value="${errorMessage}"></c:out>
     </c:if>
-    <form method="POST" action="/login">
+    <form method="POST" action="/user/login">
 
 		<label for="username">Username</label>
 		<input type="text" id="username" name="username"/>

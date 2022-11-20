@@ -24,7 +24,7 @@ public class WebSecurityConfig {
 		
 		http.
 	            authorizeRequests() // Allows restricting access based upon the HttpServletRequest
-	                .antMatchers("/css/**", "/js/**", "/registration").permitAll() //PathMatcher implementation for Ant-style path patterns
+	                .antMatchers("/css/**", "/js/**", "/user/**", "/tutor/**", "/**", "/welcome/**").permitAll() //PathMatcher implementation for Ant-style path patterns
 		            .antMatchers("/admin/**").access("hasRole('ADMIN')")
 	                .anyRequest().authenticated()
 	                .and()
