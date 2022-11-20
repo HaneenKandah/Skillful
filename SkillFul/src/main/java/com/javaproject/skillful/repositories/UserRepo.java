@@ -1,5 +1,9 @@
 package com.javaproject.skillful.repositories;
 
-public interface UserRepo {
+import org.springframework.data.repository.CrudRepository;
+
+import com.javaproject.skillful.models.User;
+
+public interface UserRepo extends CrudRepository<User, Long>{
 
 }
