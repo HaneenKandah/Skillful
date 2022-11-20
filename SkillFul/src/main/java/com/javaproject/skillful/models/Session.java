@@ -4,9 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -32,11 +35,21 @@ public class Session {
 	
 	private Boolean online;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private User user;
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "tutor_id")
+	private Tutor tutor;
+	
 	@Column(updatable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createdAt;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date updatedAt;
+
 	
 	@PrePersist
     protected void onCreate(){
@@ -52,15 +65,21 @@ public class Session {
     public Session() {
     	
 	}
-	public Session(Date startDate, Date endDate, Location location, Boolean online) {
-		super();
+	public Session(Date startDate, Date endDate, Location location, Boolean online, User user) {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.location = location;
 		this.online = online;
+		this.user = user;
 	}
 	
 	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public Long getId() {
 		return id;
 	}

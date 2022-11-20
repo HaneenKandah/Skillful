@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -58,15 +59,37 @@ public class User {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
     
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "users_roles", 
         joinColumns = @JoinColumn(name = "user_id"), 
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
     
-    public User() {}
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Session> sessions;
+    
+    public User() {
+    	
+    }
+    
+    
       
+	public User(String firstName, String lastName, String username, 
+			String email, String password, String confirm,
+			List<Role> roles, List<Session> sessions) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.confirm = confirm;
+		this.roles = roles;
+		this.sessions = sessions;
+	}
+
+	
+
 	public Long getId() {
 		return id;
 	}
@@ -74,6 +97,18 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public List<Session> getSessions() {
+		return sessions;
+	}
+
+
+
+	public void setSessions(List<Session> sessions) {
+		this.sessions = sessions;
+	}
+
+
 
 	public String getFirstName() {
 		return firstName;
