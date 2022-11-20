@@ -17,9 +17,7 @@ public class Role {
     private Long id;
     private String name;
     @ManyToMany(mappedBy = "roles")
-    private List<User> users;
-    @ManyToMany(mappedBy = "roles")
-    private List<Tutor> tutors;    
+    private List<User> users;   
     
     public Role() {
     }
@@ -42,13 +40,5 @@ public class Role {
     public void setUsers(List<User> users) {
         this.users = users;
     }
-
-	public List<Tutor> getTutors() {
-		return tutors;
-	}
-
-	public void setTutors(List<Tutor> tutors) {
-		this.tutors = tutors;
-	}
     
 }

@@ -9,7 +9,7 @@
 <title>Registration Page</title>
 </head>
 <body>
-    <h1>Register as a tutor!</h1>
+    <h1>Register!</h1>
     
     <p><form:errors path="user.*"/></p>
     
@@ -22,14 +22,16 @@
             <form:input path="lastName"/>
             
             <form:label path="username">Username:</form:label>
-            <form:input path="username"/>
-
+            <form:input path="username"/>  
+                     
+            <form:label path="email">Email:</form:label>
+            <form:input type="email" path="email"/>
 
             <form:label path="password">Password:</form:label>
             <form:password path="password"/>
 
-            <form:label path="passwordConfirmation">Confirm Password:</form:label>
-            <form:password path="passwordConfirmation"/>
+            <form:label path="confirm">Confirm Password:</form:label>
+            <form:password path="confirm"/>
 
         	<input type="submit" value="Register"/>
     </form:form>
