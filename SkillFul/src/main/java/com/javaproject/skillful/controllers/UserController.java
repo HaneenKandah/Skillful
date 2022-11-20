@@ -23,20 +23,17 @@ public class UserController {
     
     private UserService userService;
     
-    
     public UserController(UserService userService, UserValidator userValidator) {
         this.userService = userService;
         this.userValidator = userValidator;
     }
     
-    // USER REGISTRATION
-    @RequestMapping("/user/register")
+    @RequestMapping("/registration")
     public String registerForm(@ModelAttribute("user") User user) {
         return "UserRegistration.jsp";
     }
-    
 
-    @PostMapping("/user/register")
+    @PostMapping("/registration")
     public String registration(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
 
         userValidator.validate(user, result);
@@ -45,11 +42,17 @@ public class UserController {
         }
         
         userService.saveWithUserRole(user);
-        return "redirect:/user/login";
+        return "redirect:/login";
     }
-    
-    
-    @RequestMapping("/user/login")
+  
+    @RequestMapping("/admin")
+    public String adminPage(Principal principal, Model model) {
+    	String username = principal.getName();
+        model.addAttribute("currentUser", userService.findByUsername(username));
+        return "adminPage.jsp";
+    }
+   
+    @RequestMapping("/login")
     public String login(@RequestParam(value="error", required=false) String error, @RequestParam(value="logout", required=false) String logout, Model model) {
         if(error != null) {
             model.addAttribute("errorMessage", "Invalid Credentials, Please try again.");
@@ -60,15 +63,7 @@ public class UserController {
         return "UserLogin.jsp";
     }
     
-    
-    @RequestMapping("/admin")
-    public String adminPage(Principal principal, Model model) {
-    	String username = principal.getName();
-    	model.addAttribute("currentUser", userService.findByUsername(username));
-    	return "adminPage.jsp";
-    }
-    
-    @RequestMapping(value = {"/home"})
+    @RequestMapping(value = {"/", "/home"})
     public String home(Principal principal, Model model) {
 
         String username = principal.getName();
