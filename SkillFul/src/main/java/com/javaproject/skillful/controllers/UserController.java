@@ -23,18 +23,15 @@ public class UserController {
     
     private UserService userService;
     
-    
     public UserController(UserService userService, UserValidator userValidator) {
         this.userService = userService;
         this.userValidator = userValidator;
     }
     
-    // USER REGISTRATION
     @RequestMapping("/registration")
     public String registerForm(@ModelAttribute("user") User user) {
         return "UserRegistration.jsp";
     }
-    
 
     @PostMapping("/registration")
     public String registration(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
@@ -47,8 +44,14 @@ public class UserController {
         userService.saveWithUserRole(user);
         return "redirect:/login";
     }
-    
-    
+  
+    @RequestMapping("/admin")
+    public String adminPage(Principal principal, Model model) {
+    	String username = principal.getName();
+        model.addAttribute("currentUser", userService.findByUsername(username));
+        return "adminPage.jsp";
+    }
+   
     @RequestMapping("/login")
     public String login(@RequestParam(value="error", required=false) String error, @RequestParam(value="logout", required=false) String logout, Model model) {
         if(error != null) {
@@ -57,15 +60,7 @@ public class UserController {
         if(logout != null) {
             model.addAttribute("logoutMessage", "Logout Successful!");
         }
-        return "loginPage.jsp";
-    }
-    
-    
-    @RequestMapping("/admin")
-    public String adminPage(Principal principal, Model model) {
-    	String username = principal.getName();
-    	model.addAttribute("currentUser", userService.findByUsername(username));
-    	return "adminPage.jsp";
+        return "UserLogin.jsp";
     }
     
     @RequestMapping(value = {"/", "/home"})
