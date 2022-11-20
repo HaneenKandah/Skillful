@@ -4,6 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.javaproject.skillful.models.User;
 
-public interface UserRepo extends CrudRepository<User, Long>{
-
+public interface UserRepository extends CrudRepository<User, Long> {
+    User findByEmail(String email);
+    User findByUsername(String username);
 }

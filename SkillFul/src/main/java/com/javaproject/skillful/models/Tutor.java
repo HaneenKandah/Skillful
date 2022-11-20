@@ -1,4 +1,5 @@
 package com.javaproject.skillful.models;
+
 import java.util.Date;
 import java.util.List;
 
@@ -21,10 +22,9 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
-@Table(name="users")
-public class User {
+@Table(name="tutors")
+public class Tutor {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,13 +60,13 @@ public class User {
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "users_roles", 
-        joinColumns = @JoinColumn(name = "user_id"), 
+        name = "tutors_roles", 
+        joinColumns = @JoinColumn(name = "tutor_id"), 
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
-    
-    public User() {}
-      
+
+    public Tutor() {}
+
 	public Long getId() {
 		return id;
 	}
@@ -156,5 +156,4 @@ public class User {
     protected void onUpdate(){
         this.updatedAt = new Date();
     }
-    
 }
