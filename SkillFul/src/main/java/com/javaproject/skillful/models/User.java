@@ -25,9 +25,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotEmpty(message="Username is required!")
-    @Size(min=3, max=30, message="Username must be between 3 and 30 characters")
-    private String userName;
+    
+    
+    @NotEmpty(message="First_name is required!")
+    @Size(min=3, max=30, message="First_name must be between 3 and 30 characters")
+    private String first_name;
+    @NotEmpty(message="Last_name is required!")
+    @Size(min=3, max=30, message="Last_name must be between 3 and 30 characters")
+    private String last_name;
     
     @NotEmpty(message="Email is required!")
     @Email(message="Please enter a valid email!")
@@ -72,14 +77,6 @@ public class User {
 	}
 
 
-	public String getUserName() {
-		return userName;
-	}
-
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
 
 
 	public String getEmail() {
@@ -116,7 +113,7 @@ public class User {
 		return createdAt;
 	}
 
-
+	
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
@@ -129,6 +126,26 @@ public class User {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+
+	public String getFirst_name() {
+		return first_name;
+	}
+
+
+	public void setFirst_name(String first_name) {
+		this.first_name = first_name;
+	}
+
+
+	public String getLast_name() {
+		return last_name;
+	}
+
+
+	public void setLast_name(String last_name) {
+		this.last_name = last_name;
 	}
     
     
